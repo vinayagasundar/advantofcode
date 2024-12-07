@@ -1,6 +1,6 @@
 package com.adventofcode.`2024`
 
-import java.math.BigDecimal
+var hasCombineOperator = false
 
 fun main() {
     val input = readFileFromResources("day07.txt").orEmpty()
@@ -11,21 +11,24 @@ fun main() {
         }
         .toList()
 
-    println(input)
-
     var total: Long = 0
 
     input.onEach { (target, numbers) ->
-        val p = LongArray(numbers.size)
-        for (i in numbers.indices) {
-            p[i] = 1
-            while (p[i] <= numbers[i]) p[i] = p[i] * 10
-        }
         if (backtrack(numbers, 0, numbers[0], target)) {
             total += target
         }
     }
-    println(total)
+    println("Part 1 $total")
+
+    hasCombineOperator = true
+    total = 0
+
+    input.onEach { (target, numbers) ->
+        if (backtrack(numbers, 0, numbers[0], target)) {
+            total += target
+        }
+    }
+    println("Part 2 $total")
 }
 
 fun backtrack(number: List<Long>, i: Int, total: Long, target: Long): Boolean {
@@ -45,6 +48,10 @@ fun backtrack(number: List<Long>, i: Int, total: Long, target: Long): Boolean {
     }
 
     if (backtrack(number, j, total * n, target)) {
+        return true
+    }
+
+    if (hasCombineOperator && backtrack(number, j, "$total$n".toLong(), target)) {
         return true
     }
 
