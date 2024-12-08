@@ -22,38 +22,59 @@ fun main() {
     val maxRow = input.lastIndex
     val maxColumn = input[0].lastIndex
 
-    val seen = mutableSetOf<Pair<Int, Int>>()
-
     fun Pair<Int, Int>.inMatrix(): Boolean {
         val (r, c) = this
         return r in 0..maxRow && c in 0..maxColumn
     }
 
-    antenna.onEach { (_, positions) ->
-        positions.onEachIndexed { i, selPos ->
+    fun solve(part2: Boolean = false): Int {
+        val seen = mutableSetOf<Pair<Int, Int>>()
+        antenna.onEach { (_, positions) ->
+            positions.onEachIndexed { i, selPos ->
+                for (j in i + 1..positions.lastIndex) {
+                    val comPos = positions[j]
+                    if (selPos == comPos) {
+                        continue
+                    }
 
-            for (j in i + 1..positions.lastIndex) {
-                val comPos = positions[j]
-                if (selPos == comPos || (selPos.first == comPos.first || selPos.second == comPos.second)) {
-                    continue
-                }
+                    val dr = selPos.first - comPos.first
+                    val dc = selPos.second - comPos.second
 
-                val dr = selPos.first - comPos.first
-                val dc = selPos.second - comPos.second
+                    if (part2) {
+                        seen.add(selPos)
+                        seen.add(comPos)
+                    }
 
-                val p1 = selPos.first + dr to selPos.second + dc
-                val p2 = comPos.first - dr to comPos.second - dc
+                    var m = 1
+                    while (true) {
+                        val p1 = selPos.first + (dr * m) to selPos.second + (dc * m)
+                        val p2 = comPos.first - (dr * m) to comPos.second - (dc * m)
 
-                if (p1.inMatrix()) {
-                    seen.add(p1)
-                }
+                        if (p1.inMatrix()) {
+                            seen.add(p1)
+                        }
 
-                if (p2.inMatrix()) {
-                    seen.add(p2)
+                        if (p2.inMatrix()) {
+                            seen.add(p2)
+                        }
+
+                        if (part2.not()) {
+                            break
+                        }
+
+                        if (p1.inMatrix().not() && p2.inMatrix().not()) {
+                            break
+                        }
+
+                        m += 1
+                    }
                 }
             }
         }
+
+        return seen.size
     }
 
-    println("Part 1 ${seen.size}")
+    println("Part 1 ${solve()}")
+    println("Part 2 ${solve(true)}")
 }
