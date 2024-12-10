@@ -1,4 +1,4 @@
-package com.adventofcode.`2024`
+package com.adventofcode
 
 import java.io.InputStream
 

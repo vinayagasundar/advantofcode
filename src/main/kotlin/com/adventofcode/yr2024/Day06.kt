@@ -1,6 +1,8 @@
-package com.adventofcode.`2024`
+package com.adventofcode.yr2024
 
-import com.adventofcode.`2024`.Direction.*
+import com.adventofcode.Direction
+import com.adventofcode.Direction.*
+import com.adventofcode.readFileFromResources
 
 fun main() {
     val inputFile = readFileFromResources("day06.txt").orEmpty()

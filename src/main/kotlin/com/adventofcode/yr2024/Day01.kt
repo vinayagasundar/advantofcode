@@ -1,5 +1,6 @@
-package com.adventofcode.`2024`
+package com.adventofcode.yr2024
 
+import com.adventofcode.readFileFromResources
 import kotlin.math.abs
 
 fun main() {

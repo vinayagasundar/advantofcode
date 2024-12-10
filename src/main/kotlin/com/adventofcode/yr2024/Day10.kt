@@ -1,4 +1,6 @@
-package com.adventofcode.`2024`
+package com.adventofcode.yr2024
+
+import com.adventofcode.*
 
 fun main() {
     val trailHeadPosition = mutableListOf<Point>()

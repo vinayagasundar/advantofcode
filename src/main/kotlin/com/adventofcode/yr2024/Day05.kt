@@ -1,4 +1,6 @@
-package com.adventofcode.`2024`
+package com.adventofcode.yr2024
+
+import com.adventofcode.readFileFromResources
 
 fun main() {
     val inputFile = readFileFromResources("day05.txt").orEmpty()
