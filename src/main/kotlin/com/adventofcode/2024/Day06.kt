@@ -1,42 +1,16 @@
 package com.adventofcode.`2024`
 
-enum class Direction(val x: Int, val y: Int) {
-    Up(-1, 0),
-    Down(1, 0),
-    Left(0, -1),
-    Right(0, 1);
-
-    fun turn90(): Direction {
-        return when (this) {
-            Up -> Right
-            Left -> Up
-            Down -> Left
-            Right -> Down
-        }
-    }
-
-    companion object {
-        fun getDirectionFromArrow(arrow: String): Direction? {
-            return when (arrow) {
-                "^" -> Up
-                "v" -> Down
-                ">" -> Right
-                "<" -> Left
-                else -> null
-            }
-        }
-    }
-}
+import com.adventofcode.`2024`.Direction.*
 
 fun main() {
     val inputFile = readFileFromResources("day06.txt").orEmpty()
     var (startX, startY) = 0 to 0
-    var startDir = Direction.Up
+    var startDir = Up
     val map = inputFile.lineSequence()
         .map { it.split("").toTypedArray() }
         .onEachIndexed { i, array ->
             array.onEachIndexed { j, c ->
-                Direction.getDirectionFromArrow(c)?.let { d ->
+                getDirectionFromArrow(c)?.let { d ->
                     startX = i
                     startY = j
                     startDir = d
@@ -114,13 +88,23 @@ private fun willLoop(
     }
 }
 
-fun List<Array<String>>.isEdge(x: Int, y: Int, direction: Direction): Boolean {
+private fun List<Array<String>>.isEdge(x: Int, y: Int, direction: Direction): Boolean {
     val mx = this.size - 1
     val my = this[0].size - 1
     return when (direction) {
-        Direction.Up -> x == 0
-        Direction.Left -> y == 0
-        Direction.Right -> y == my
-        Direction.Down -> x == mx
+        Up -> x == 0
+        Left -> y == 0
+        Right -> y == my
+        Down -> x == mx
+    }
+}
+
+private fun getDirectionFromArrow(arrow: String): Direction? {
+    return when (arrow) {
+        "^" -> Up
+        "v" -> Down
+        ">" -> Right
+        "<" -> Left
+        else -> null
     }
 }
