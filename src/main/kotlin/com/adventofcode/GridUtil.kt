@@ -28,8 +28,4 @@ enum class Direction(val x: Int, val y: Int) {
             Right -> Down
         }
     }
-
-    companion object {
-        val FOUR_DIR = listOf(Up, Down, Right, Left)
-    }
 }

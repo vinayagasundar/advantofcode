@@ -42,7 +42,7 @@ fun main() {
 
         val nextExpectedValue = expectedSlopeValue + 1
 
-        for (dir in Direction.FOUR_DIR) {
+        for (dir in Direction.entries) {
             calculateScore(cur.next(dir),  nextExpectedValue, onReachPeek)
         }
     }
