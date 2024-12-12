@@ -6,7 +6,17 @@ fun List<IntArray>.isInMap(point: Point): Boolean {
     return point.x in 0..this.lastIndex && point.y in 0..this[point.x].lastIndex
 }
 
+@JvmName("charArrayInMap")
+fun List<CharArray>.isInMap(point: Point): Boolean {
+    return point.x in 0..this.lastIndex && point.y in 0..this[point.x].lastIndex
+}
+
 fun List<IntArray>.getValue(point: Point): Int {
+    return this[point.x][point.y]
+}
+
+@JvmName("charArrayGetValue")
+fun List<CharArray>.getValue(point: Point): Char {
     return this[point.x][point.y]
 }
 
