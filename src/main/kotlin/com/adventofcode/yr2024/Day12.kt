@@ -59,37 +59,6 @@ fun main() {
     var amountByFenceCount = 0
     var amountByFenceSideCount = 0
 
-    val xPointComparator = Comparator<Point> { first, second ->
-        when {
-            first == second -> 0
-            first.x < second.x -> -1
-            first.x > second.x -> 1
-            else -> {
-                when {
-                    first.y == second.y -> 0
-                    first.y < second.y -> -1
-                    else -> 1
-                }
-            }
-        }
-    }
-
-    val yPointComparator = Comparator<Point> { first, second ->
-        when {
-            first == second -> 0
-            first.y < second.y -> -1
-            first.y > second.y -> 1
-            else -> {
-                when {
-                    first.x == second.x -> 0
-                    first.x < second.x -> -1
-                    else -> 1
-                }
-            }
-        }
-    }
-
-
     for (r in plots.indices) {
         for (c in plots[r].indices) {
             val point = Point(r, c)
@@ -102,14 +71,14 @@ fun main() {
 
             amountByFenceCount += (coveredPlot.size - lastPlotSize) * fenceCount
 
-            var slidesCount = 0
+            var sideCount = 0
             for (key in fenceMap.keys) {
                 var lastFencePoint = Point(Int.MIN_VALUE, Int.MIN_VALUE)
 
                 val comparator = if (key in listOf(Direction.Up, Direction.Down)) {
-                    xPointComparator
+                    pointXComparator
                 } else {
-                    yPointComparator
+                    pointYComparator
                 }
 
                 val sortedPoints =  fenceMap[key]?.sortedWith(comparator).orEmpty()
@@ -126,11 +95,11 @@ fun main() {
                         continue
                     }
 
-                    slidesCount += 1
+                    sideCount += 1
                 }
             }
 
-            amountByFenceSideCount += (coveredPlot.size - lastPlotSize) * slidesCount
+            amountByFenceSideCount += (coveredPlot.size - lastPlotSize) * sideCount
         }
     }
 

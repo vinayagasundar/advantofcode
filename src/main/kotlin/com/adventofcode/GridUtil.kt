@@ -24,18 +24,32 @@ fun Point.next(direction: Direction): Point {
     return Point(x + direction.x, y + direction.y)
 }
 
-enum class Direction(val x: Int, val y: Int) {
-    Up(-1, 0),
-    Down(1, 0),
-    Left(0, -1),
-    Right(0, 1);
+val pointXComparator = Comparator<Point> { first, second ->
+    when {
+        first == second -> 0
+        first.x < second.x -> -1
+        first.x > second.x -> 1
+        else -> {
+            when {
+                first.y == second.y -> 0
+                first.y < second.y -> -1
+                else -> 1
+            }
+        }
+    }
+}
 
-    fun turn90(): Direction {
-        return when (this) {
-            Up -> Right
-            Left -> Up
-            Down -> Left
-            Right -> Down
+val pointYComparator = Comparator<Point> { first, second ->
+    when {
+        first == second -> 0
+        first.y < second.y -> -1
+        first.y > second.y -> 1
+        else -> {
+            when {
+                first.x == second.x -> 0
+                first.x < second.x -> -1
+                else -> 1
+            }
         }
     }
 }
