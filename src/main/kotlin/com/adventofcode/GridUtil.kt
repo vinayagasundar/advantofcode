@@ -20,8 +20,19 @@ fun List<CharArray>.getValue(point: Point): Char {
     return this[point.x][point.y]
 }
 
+
+@JvmName("booleanArrayGetValue")
+fun Array<BooleanArray>.getValue(point: Point): Boolean {
+    return this[point.x][point.y]
+}
+
 fun Point.next(direction: Direction): Point {
     return Point(x + direction.x, y + direction.y)
+}
+
+@JvmName("setValueBooleanArray")
+fun Array<BooleanArray>.setValue(point: Point, value: Boolean) {
+    this[point.x][point.y] = value
 }
 
 val pointXComparator = Comparator<Point> { first, second ->
