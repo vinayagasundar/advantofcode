@@ -35,3 +35,13 @@ fun Direction.antiClockwise(): Direction {
         Right -> Up
     }
 }
+
+fun Char.toDirection(): Direction {
+    return when (this) {
+        '<' -> Left
+        '>' -> Right
+        '^' -> Up
+        'v' -> Down
+        else -> throw IllegalAccessException()
+    }
+}

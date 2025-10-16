@@ -23,7 +23,7 @@ fun main() {
         if (d == '\n') {
             continue
         }
-        val dir = d.getDirection()
+        val dir = d.toDirection()
         val updatedRobotPos = robotPos.next(dir)
         val value = map.getValue(updatedRobotPos)
 
@@ -88,14 +88,4 @@ fun main() {
         .apply {
             println("Part 1 $this")
         }
-}
-
-private fun Char.getDirection(): Direction {
-    return when (this) {
-        '<' -> Direction.Left
-        '>' -> Direction.Right
-        '^' -> Direction.Up
-        'v' -> Direction.Down
-        else -> throw IllegalAccessException()
-    }
 }
